@@ -2,6 +2,7 @@ import { gql } from 'apollo-boost';
 
 export const GET_REPOSITORIES_OF_ORGANIZATION = gql`
   fragment repository on Repository {
+    id
     name
     url
   }

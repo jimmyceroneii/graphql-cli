@@ -3,6 +3,7 @@ import ApolloClient from 'apollo-boost';
 import { GET_REPOSITORIES_OF_ORGANIZATION } from './graphql/GetRepositoriesOfOrganization';
 
 import 'dotenv/config';
+import { ADD_STAR } from './graphql/AddStarForRepository';
 
 const client = new ApolloClient({
   uri: 'https://api.github.com/graphql',
@@ -32,6 +33,17 @@ const main = async () => {
         organization: 'the-road-to-learn-react',
         cursor:
           result.data.organization.repositories.pageInfo.endCursor,
+      },
+    })
+    .then((result) => {
+      console.log(JSON.stringify(result, undefined, 2));
+    });
+
+  client
+    .mutate({
+      mutation: ADD_STAR,
+      variables: {
+        repositoryId: 'MDEwOlJlcG9zaXRvcnkxMDY3ODI4NzM=',
       },
     })
     .then((result) => {
